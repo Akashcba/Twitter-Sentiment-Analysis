@@ -20,7 +20,8 @@ current_end_date = current_date + dt.timedelta(days=1)
 end_date = dt.date(2020, 6, 11)
 while (current_date != end_date):
     c = twint.Config()
-    c.Search = q
+    #c.Search = q
+    c.Username = q
     c.Limit = 100
     c.Lang = 'en'
     c.Store_csv = True

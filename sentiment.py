@@ -31,6 +31,9 @@ data['polarity'] = se.values
 data['date'] = pd.to_datetime(data['date'],format='%Y-%m-%d %H:%M:%S')
 data.index = data['date']
 
+print("Saving DF ")
+temp = data[]
+data.to_csv(f"{q}_cmp.csv", index=False)
 ### Calculation of Nature
 neg = 0
 pos = 0
