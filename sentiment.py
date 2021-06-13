@@ -1,4 +1,6 @@
 #!pip install vaderSentiment
+import warnings
+warnings.filterwarnings("ignore")
 
 import pandas as pd
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
@@ -6,14 +8,11 @@ import sys
 
 q = str(sys.argv[-1])
 
-data = pd.read_csv(f'{q}.csv')
+data = pd.read_csv(f'{q}.csv', lineterminator='\n')
 
 ##### vader lexicon
 import nltk
 nltk.download('vader_lexicon')
-
-from sklearn.preprocessing import MinMaxScaler
-scaler = MinMaxScaler(feature_range=(0, 1))
 
 
 sid = SentimentIntensityAnalyzer()
@@ -21,7 +20,7 @@ sid = SentimentIntensityAnalyzer()
 listy = []
 
 for index, row in data.iterrows():
-  ss = sid.polarity_scores(row.values[10])   ## Set it
+  ss = sid.polarity_scores(row.values[11])   ## Set it
   sa = ss['compound']
   listy.append(sa)
 
@@ -29,8 +28,8 @@ se = pd.Series(listy)
 data['polarity'] = se.values
 
 #setting index as date
-data[' date'] = pd.to_datetime(data[' date'],format='%Y-%m-%d %H:%M:%S')
-data.index = data[' date']
+data['date'] = pd.to_datetime(data['date'],format='%Y-%m-%d %H:%M:%S')
+data.index = data['date']
 
 ### Calculation of Nature
 neg = 0
